@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>働き方タイプ診断｜生年月日でわかる9つの仕事スタイル</title>
+<meta name="description" content="生年月日と今の悩みを選ぶだけ。30秒でわかる無料の働き方タイプ診断。あなたの強みと、仕事の悩みへのヒントが見つかります。">
+<meta property="og:title" content="働き方タイプ診断｜あなたの働き方タイプ、9つのうちどれ？">
+<meta property="og:description" content="生年月日と今の悩みを選ぶだけ。30秒でわかる無料診断。">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700;900&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F5F6FA; --surface:#FFFFFF; --ink:#232A3B; --sub:#5E677A;
+  --line:#DDE2EA; --btn:#232A3B; --btn-ink:#FFFFFF;
+  --t1:#E2552F; --t2:#3E9BDB; --t3:#E0960B; --t4:#3B8C5A; --t5:#159FA3;
+  --t6:#E2668F; --t7:#4B5FD3; --t8:#B8862A; --t9:#8B5CD3;
+  --tc:var(--t7);
+  color-scheme:light; box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#151922; --surface:#1E2431; --ink:#E8EBF1; --sub:#A0A8B8;
+    --line:#2F3747; --btn:#E8EBF1; --btn-ink:#151922;
+    --t1:#F07450; --t2:#62B2EA; --t3:#F2B035; --t4:#5BB07D; --t5:#35BFC2;
+    --t6:#EE86A9; --t7:#7D8DF0; --t8:#D7A84D; --t9:#A986EC;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#151922; --surface:#1E2431; --ink:#E8EBF1; --sub:#A0A8B8;
+  --line:#2F3747; --btn:#E8EBF1; --btn-ink:#151922;
+  --t1:#F07450; --t2:#62B2EA; --t3:#F2B035; --t4:#5BB07D; --t5:#35BFC2;
+  --t6:#EE86A9; --t7:#7D8DF0; --t8:#D7A84D; --t9:#A986EC;
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:"Zen Kaku Gothic New","Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+  font-size:16px; line-height:1.8; -webkit-text-size-adjust:100%;
+}
+.wrap{max-width:560px; margin:0 auto; padding:36px 20px 56px}
+h1,h2,h3,button,.btn,.num,.card strong{font-family:"Zen Maru Gothic","Hiragino Maru Gothic ProN","Zen Kaku Gothic New",sans-serif}
+
+header h1{font-weight:900; font-size:clamp(30px,8.4vw,42px); line-height:1.35; margin:0 0 12px}
+header p{margin:0; color:var(--sub); font-size:15px}
+
+.types{display:grid; grid-template-columns:repeat(9,1fr); gap:6px; margin:24px 0 0}
+.types span{aspect-ratio:1; border-radius:50%; display:grid; place-items:center; background:var(--c); color:#fff}
+.types svg{width:62%; height:62%}
+
+.panel{background:var(--surface); border:1px solid var(--line); border-radius:20px; padding:22px 18px; margin-top:24px}
+.panel h2{font-size:18px; font-weight:700; margin:0 0 14px}
+.step{font-size:14px; font-weight:700; margin:0 0 8px}
+.step + .step, .dob + .step{margin-top:20px}
+.dob{display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:10px}
+.dob label{display:block; font-size:13px; color:var(--sub); margin-bottom:4px}
+select{
+  width:100%; font:inherit; font-size:17px; color:var(--ink); background:var(--bg);
+  border:1px solid var(--line); border-radius:12px; padding:11px 10px;
+  appearance:none; -webkit-appearance:none;
+}
+fieldset{border:0; margin:0; padding:0; min-width:0}
+legend{padding:0}
+.chips{display:flex; flex-wrap:wrap; gap:8px}
+.chips label{position:relative}
+.chips input{position:absolute; opacity:0; inset:0; margin:0}
+.chips span{
+  display:inline-block; padding:8px 14px; border-radius:999px; font-size:14.5px;
+  border:1px solid var(--line); background:var(--bg); cursor:pointer; line-height:1.4;
+}
+.chips input:checked + span{background:var(--tc); border-color:var(--tc); color:#fff; font-weight:700}
+.chips input:focus-visible + span{outline:3px solid var(--tc); outline-offset:2px}
+
+button,.btn{
+  display:block; width:100%; margin-top:20px; font:inherit; font-weight:700; font-size:17px;
+  color:var(--btn-ink); background:var(--btn); border:0; border-radius:999px;
+  padding:15px; cursor:pointer; text-align:center; text-decoration:none;
+}
+:focus-visible{outline:3px solid var(--tc); outline-offset:2px}
+.note{font-size:13px; color:var(--sub); margin:12px 0 0}
+
+#result{display:none; margin-top:32px}
+#result.show{display:block}
+.trail{color:var(--sub); font-size:14px; line-height:2; overflow-x:auto; white-space:nowrap; margin-bottom:12px}
+.trail span{display:inline-block; opacity:0; transform:translateY(4px); transition:opacity .35s,transform .35s}
+.trail span.on{opacity:1; transform:none}
+
+.card{
+  border-radius:24px; padding:24px 20px 22px;
+  background:color-mix(in srgb, var(--tc) 13%, var(--surface)); border:2px solid var(--tc);
+  opacity:0; transform:scale(.96); transition:opacity .5s, transform .5s;
+}
+.card.on{opacity:1; transform:none}
+.card-top{display:flex; align-items:center; gap:16px}
+.badge{flex:none; width:92px; height:92px; border-radius:50%; background:var(--tc); color:#fff; display:grid; place-items:center}
+.badge svg{width:54px; height:54px}
+.card small{display:block; font-size:13px; color:var(--sub)}
+.num{font-weight:900; color:var(--tc); font-size:20px; line-height:1.2}
+.card strong{display:block; font-size:clamp(23px,6.4vw,29px); font-weight:900; line-height:1.3}
+.tags{display:flex; flex-wrap:wrap; gap:6px; margin-top:16px}
+.tags span{font-size:13.5px; padding:3px 12px; border-radius:999px; background:var(--surface); border:1px solid var(--tc)}
+.card .site{font-size:11.5px; color:var(--sub); margin-top:14px; text-align:right}
+
+.master{border-radius:14px; padding:10px 14px; font-size:14px; margin:14px 0 0; display:none; background:color-mix(in srgb, var(--tc) 10%, var(--surface))}
+.master.show{display:block}
+.lead{font-size:16.5px; margin:20px 0 0}
+dl{margin:20px 0 0}
+dl div{padding:12px 0; border-top:1px dashed var(--line); display:grid; grid-template-columns:5.5em 1fr; gap:10px}
+dt{font-weight:700; color:var(--tc); font-size:14px}
+dd{margin:0}
+
+.advice{border-color:var(--tc); border-width:2px}
+.advice h2{color:var(--tc)}
+.advice .who{font-size:13px; color:var(--sub); margin:0 0 4px}
+.advice .q{font-weight:700; margin:0 0 8px; font-size:16px}
+.advice .a{margin:0}
+.advice .empty{color:var(--sub); margin:0}
+.advice .chips{margin-top:16px}
+.advice .chips span{font-size:13.5px; padding:6px 12px}
+
+.teaser h2{margin-bottom:6px}
+.teaser .sub{font-size:13.5px; color:var(--sub); margin:0 0 14px}
+.toc{list-style:none; margin:0 0 16px; padding:0; counter-reset:c}
+.toc li{counter-increment:c; padding:7px 0 7px 2.2em; position:relative; border-top:1px dashed var(--line); font-size:15px}
+.toc li::before{content:counter(c); position:absolute; left:0; top:7px; width:1.6em; height:1.6em; border-radius:50%; background:var(--bg); display:grid; place-items:center; font-size:13px; font-weight:700}
+.toc li.hit{font-weight:700}
+.toc li.hit::before{background:var(--tc); color:#fff}
+.toc li small{display:block; font-weight:400; color:var(--tc); font-size:13px}
+.excerpt{border-radius:14px; background:var(--bg); padding:16px; position:relative; overflow:hidden}
+.excerpt h3{font-size:15px; margin:0 0 6px}
+.excerpt p{margin:0; font-size:15px}
+.blur{filter:blur(5px); user-select:none; -webkit-user-select:none; margin-top:8px !important; color:var(--sub)}
+.fade{position:absolute; left:0; right:0; bottom:0; height:70%; background:linear-gradient(transparent, var(--bg) 85%); display:flex; align-items:flex-end; justify-content:center; padding-bottom:14px; font-size:14px; font-weight:700}
+.btn.soon{background:var(--line); color:var(--sub); cursor:default}
+
+.share{display:grid; grid-template-columns:1fr 1fr; gap:10px}
+.share a,.share button{margin-top:0; font-size:15px; padding:12px; background:transparent; color:var(--ink); border:1px solid var(--line)}
+.retry{background:transparent; color:var(--sub); border:1px solid var(--line); font-weight:500; font-size:15px}
+.howto{font-size:13.5px; color:var(--sub)}
+.howto p{margin:0}
+footer{margin-top:40px; font-size:12.5px; color:var(--sub)}
+footer p{margin:0 0 8px}
+@media (prefers-reduced-motion:reduce){ .trail span,.card{transition:none} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>あなたの働き方タイプ、<br>9つのうちどれ？</h1>
+    <p>生年月日と今の悩みを選ぶだけ、30秒でわかる無料診断。自分の強みと、悩みへのヒントが見えてきます。</p>
+  </header>
+
+  <div class="types" id="types" aria-hidden="true"></div>
+
+  <section class="panel" aria-labelledby="formTitle">
+    <h2 id="formTitle">2つ選んで診断スタート</h2>
+    <p class="step">① 生年月日</p>
+    <div class="dob">
+      <div><label for="y">年</label><select id="y"></select></div>
+      <div><label for="m">月</label><select id="m"></select></div>
+      <div><label for="d">日</label><select id="d"></select></div>
+    </div>
+    <fieldset>
+      <legend class="step" style="margin-top:20px">② 今いちばん気になっていること</legend>
+      <div class="chips" id="worryForm"></div>
+    </fieldset>
+    <button id="go" type="button">診断する</button>
+    <p class="note">入力内容はこの端末の中だけで使い、送信・保存はしません。</p>
+  </section>
+
+  <section id="result" aria-live="polite">
+    <div class="trail" id="trail"></div>
+
+    <div class="card" id="card">
+      <div class="card-top">
+        <div class="badge" id="badge"></div>
+        <div>
+          <small>あなたの働き方タイプ</small>
+          <div class="num" id="num"></div>
+          <strong id="tname"></strong>
+        </div>
+      </div>
+      <div class="tags" id="tags"></div>
+      <div class="site">働き方タイプ診断</div>
+    </div>
+
+    <p class="master" id="master"></p>
+    <p class="lead" id="lead"></p>
+    <dl>
+      <div><dt>強み</dt><dd id="strength"></dd></div>
+      <div><dt>向く環境</dt><dd id="env"></dd></div>
+    </dl>
+
+    <div class="panel advice">
+      <h2>お悩み別アドバイス</h2>
+      <div id="adviceBody"></div>
+      <fieldset>
+        <legend class="note" style="margin-top:16px">ほかの悩みも見てみる</legend>
+        <div class="chips" id="worryResult"></div>
+      </fieldset>
+    </div>
+
+    <div class="panel teaser">
+      <h2>詳細キャリアレポート</h2>
+      <p class="sub" id="teaserSub"></p>
+      <ol class="toc" id="toc"></ol>
+      <div class="excerpt">
+        <h3>第1章　あなたの働き方の核</h3>
+        <p id="excerpt"></p>
+        <p class="blur" aria-hidden="true">あなたが最も手応えを感じるのは、自分の持ち味がそのまま成果につながる瞬間です。逆に、その持ち味を封じられる環境では、実力の半分も出せていないと感じることがあるでしょう。ここでは、日々の仕事の中でその違いを見分けるための3つのサインと、</p>
+        <div class="fade">続きは詳細レポートで</div>
+      </div>
+      <span class="btn soon" role="note">準備中（ココナラで販売予定）</span>
+    </div>
+
+    <div class="panel">
+      <h2>結果をシェアする</h2>
+      <div class="share">
+        <a id="shareX" class="btn" href="#" target="_blank" rel="noopener">Xでシェア</a>
+        <button id="copy" type="button">結果をコピー</button>
+      </div>
+      <button class="retry" id="retry" type="button">別の生年月日で診断する</button>
+    </div>
+  </section>
+
+  <section class="panel howto">
+    <h2>診断のしくみ</h2>
+    <p>生年月日の数字をすべて足し、1桁になるまで足し続けた数でタイプを決めています。これは「数秘術」という、数字から人の傾向を読み解く古くからの方法をもとにしたものです。科学的な適性検査ではなく、自分を見つめ直すきっかけとしてお楽しみください。</p>
+  </section>
+
+  <footer>
+    <p>アドバイスは一般的な傾向にもとづく読み物で、専門家によるカウンセリングではありません。転職などキャリアの大切な判断は、ご自身の状況をふまえて行ってください。</p>
+    <p>仕事や心身の不調、ハラスメントなどで強くお困りの場合は、公的な相談窓口や専門家にご相談ください。</p>
+  </footer>
+</div>
+
+<script>
+const S='fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"';
+const ICONS={
+  1:`<svg viewBox="0 0 24 24" ${S}><path d="M6 21V4"/><path d="M6 4h11l-2.5 4L17 12H6"/></svg>`,
+  2:`<svg viewBox="0 0 24 24" ${S}><circle cx="9" cy="12" r="5"/><circle cx="15" cy="12" r="5"/></svg>`,
+  3:`<svg viewBox="0 0 24 24" ${S}><path d="M4 5h16v10H10l-4 4v-4H4z"/><path d="M8 9h8M8 12h5"/></svg>`,
+  4:`<svg viewBox="0 0 24 24" ${S}><rect x="4" y="14" width="7" height="6" rx="1"/><rect x="13" y="14" width="7" height="6" rx="1"/><rect x="8.5" y="6" width="7" height="6" rx="1"/></svg>`,
+  5:`<svg viewBox="0 0 24 24" ${S}><path d="M3 11l18-7-7 18-3-8z"/><path d="M11 14l4-4"/></svg>`,
+  6:`<svg viewBox="0 0 24 24" ${S}><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>`,
+  7:`<svg viewBox="0 0 24 24" ${S}><circle cx="10.5" cy="10.5" r="6"/><path d="M15 15l5 5"/></svg>`,
+  8:`<svg viewBox="0 0 24 24" ${S}><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r=".8" fill="currentColor"/></svg>`,
+  9:`<svg viewBox="0 0 24 24" ${S}><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></svg>`
+};
+
+const WORRIES=[
+  {k:"rel",    label:"職場の人間関係がしんどい"},
+  {k:"eval",   label:"頑張りが評価されない"},
+  {k:"fit",    label:"今の仕事が向いていない気がする"},
+  {k:"change", label:"転職すべきか迷っている"},
+  {k:"future", label:"この先のキャリアが見えない"}
+];
+
+const TYPES={
+ 1:{name:"開拓リーダー型", core:"自分で決めて、自分で始めること",
+  lead:"あなたは、まだ誰も歩いていない道を切り開く人。迷う場面でも決断し、周りを動かす推進力があります。新しいプロジェクトや裁量の大きい役割で、本来の力が発揮されやすいタイプです。一人で背負いすぎず、信頼できる仲間に任せる場面を作ると、成果はさらに大きく広がっていくでしょう。",
+  strength:"決断力、ゼロから始める推進力", env:"新規事業、裁量の大きい立場、独立", tags:["決断力","推進力","新規事業"],
+  adv:{
+   rel:"周りがあなたのスピードについてこられず、すれ違いが起きているのかもしれません。結論を急ぐ前に「どう思う？」と一言聞くだけで、相手は味方に変わりやすくなります。",
+   eval:"あなたの強みは、ゼロから形にする場面で最も目立ちます。決まった業務の中だけでは見えにくいので、小さくても自分発の企画を一つ提案してみましょう。",
+   fit:"裁量の少ない環境では、窮屈さを感じやすいタイプです。仕事そのものより「自分で決められる範囲」が狭いことが原因かもしれません。任される範囲を広げる相談から始めてみては。",
+   change:"迷いの正体が「挑戦したい気持ち」なら、それはあなたらしい自然なサインです。勢いで決める前に、次の職場で何を任されたいかを書き出すと、判断がぶれにくくなります。",
+   future:"道が見えないときこそ、自分で道を作る力が生きるタイプです。3年後に「自分が始めたこと」として語りたいものを一つ決めると、進む方向が見えてきます。"}},
+ 2:{name:"サポート調整型", core:"誰かの力になり、チームがうまく回ること",
+  lead:"あなたは、人と人の間をなめらかにつなぐ人。相手の気持ちを汲み取り、チームが気持ちよく動ける空気を作れるのが強みです。表に立つより、要として全体を支える役割で輝きやすいタイプ。自分の貢献を遠慮せずに言葉にすると、周囲からの評価もより正当なものになっていくはずです。",
+  strength:"気配り、人と人をつなぐ力", env:"チームの要、秘書・調整役、カスタマー対応", tags:["気配り","調整力","チームの要"],
+  adv:{
+   rel:"相手の気持ちを汲みすぎて、自分の負担が大きくなっていませんか。すべての人に合わせなくて大丈夫です。「ここまではできます」と線を引くことも、良い関係を保つ技術です。",
+   eval:"調整や気配りは、うまくいくほど目に見えなくなる仕事です。「誰と誰をつないで何が進んだか」を、週に一度でも上司に共有してみましょう。",
+   fit:"一人で黙々と進める仕事や、競争の強い環境だと力を出しにくいタイプです。人と協力する場面が増えると、本来の強みが自然と戻ってきます。",
+   change:"迷いの原因が人間関係なら、職場を変えるより部署やチームを変える選択肢もあります。誰と働くかで力が大きく変わるタイプだからこそ、「人」を軸に考えてみましょう。",
+   future:"支える役割は、キャリアの軸が見えにくいと感じがちです。でも「チームが動きやすくなる」はどの職場でも求められる力。調整やサポートの専門性を磨く道を考えてみては。"}},
+ 3:{name:"発信クリエイター型", core:"アイデアを形にし、人に届けること",
+  lead:"あなたは、アイデアと言葉で場を明るくする人。企画や発信、人前で話す場面で自然と注目を集める力があります。変化や刺激のある環境ほど、才能が伸びやすいタイプです。地道な作業は仕組みや仲間の力を借りて乗り切ると、持ち前の発想力を存分に活かせるでしょう。",
+  strength:"表現力、場を明るくするアイデア力", env:"企画・広報・営業、変化のある職場", tags:["表現力","アイデア","企画・広報"],
+  adv:{
+   rel:"思ったことがすぐ言葉になる分、軽く受け取られたり誤解されたりすることがあるかもしれません。大事な場面だけ、一度メモにまとめてから話すと伝わり方が変わります。",
+   eval:"アイデアを出すのは得意でも、最後まで形にした実績が残りにくいのかもしれません。一つの企画を完成まで見届け、結果を数字や事例で示すと評価がぐっと上がります。",
+   fit:"毎日同じ作業の繰り返しだと、意欲が落ちやすいタイプです。今の仕事の中に「発信する」「工夫する」余地がないか探すと、手応えが戻るかもしれません。",
+   change:"飽きた気持ちと、本当に合っていない気持ちを分けて考えてみましょう。新しい企画や担当替えで解消するなら社内にも道はありますし、そうでなければ環境を変えるサインです。",
+   future:"興味が広いぶん、キャリアが散らかって見えるかもしれません。これまで楽しかった仕事の共通点を3つ書き出すと、あなたの軸が見えてきます。"}},
+ 4:{name:"堅実ビルダー型", core:"確かなものを、一つずつ積み上げること",
+  lead:"あなたは、確かな土台を積み上げる人。正確さと継続力で、組織に欠かせない仕組みを作り上げる力があります。ルールが明確で、計画的に取り組める環境で安定して成果を出せるタイプです。変化の多い場面では、先に段取りを整えておくと、本来の力を落とさずに対応できるはずです。",
+  strength:"正確さ、仕組みを作り継続する力", env:"管理・経理・技術職、安定した組織", tags:["正確さ","継続力","仕組みづくり"],
+  adv:{
+   rel:"手順やルールを大切にするあなたと、感覚で動く人とでは摩擦が起きやすいもの。相手を変えようとするより、決めごとを最初に共有する場を作ると衝突が減ります。",
+   eval:"ミスなく続けることは、問題が起きないぶん評価されにくい強みです。「手順を改善して何時間減った」など、積み上げた成果を形に残して伝えてみましょう。",
+   fit:"変化が激しい、方針がころころ変わる環境だと消耗しやすいタイプです。仕事内容より「職場の安定度」が合っていない可能性も考えてみてください。",
+   change:"慎重なあなたが迷うのは、それだけ真剣に考えている証拠です。いきなり辞めるより、情報収集と準備を計画的に進めることで、安心して決断できるようになります。",
+   future:"先が見えない不安は、計画を立てることで和らぐタイプです。資格やスキルなど、一歩ずつ積み上げられる目標を一つ決めると、道筋が見えてきます。"}},
+ 5:{name:"変化チャレンジャー型", core:"新しい経験と、変化の中で動くこと",
+  lead:"あなたは、変化を楽しみながら前に進む人。新しい環境にもすぐ馴染み、行動の速さでチャンスをつかむ力があります。多様な案件や移動の多い仕事、副業との両立などで生き生きしやすいタイプ。毎日に小さな新しさを取り入れると、意欲を保ちながら長く活躍できるでしょう。",
+  strength:"適応力、行動の速さ、好奇心", env:"多様な案件、出張・異動の多い仕事、副業との両立", tags:["適応力","行動力","好奇心"],
+  adv:{
+   rel:"自由に動きたいあなたにとって、細かく管理されると息苦しさを感じやすいもの。進め方を任せてもらう代わりに、報告をこまめにする約束をすると関係が楽になります。",
+   eval:"行動が速いぶん、一つひとつの成果が流れて見えているのかもしれません。手がけた案件を一覧にしてみると、自分の幅広い貢献を伝えやすくなります。",
+   fit:"ルーティン中心の仕事だと、向いていないと感じやすいタイプです。原因が「変化の少なさ」なら、新しい担当や副業で刺激を加える方法もあります。",
+   change:"新しいことに惹かれるのは自然な性質です。ただ、変化を求めて転職を繰り返さないよう、「次の職場で何を経験したいか」を具体的にしてから動くのがおすすめです。",
+   future:"いろいろ経験してきたことが、実はあなたの強みです。一つの道に絞るより、複数の経験を組み合わせた「自分ならではの働き方」を描いてみましょう。"}},
+ 6:{name:"チームケア型", core:"人を支え、育て、守ること",
+  lead:"あなたは、人を育て、守る力を持つ人。責任感が強く、周りが安心して力を出せる場を作れるのが強みです。マネジメントや教育、人を支える仕事で信頼を集めやすいタイプ。ときには自分自身のケアも優先し、頼れるところは人に頼ることで、より長く周りを支えていけるはずです。",
+  strength:"責任感、人を育て守る力", env:"マネジメント、教育・人事、対人支援", tags:["責任感","育成力","マネジメント"],
+  adv:{
+   rel:"周りの面倒を見るうちに、頼られすぎて疲れていませんか。全部を引き受けなくても、あなたの価値は下がりません。助けを求めることも、チームを守ることにつながります。",
+   eval:"人を育てたり支えたりする成果は、数字に表れにくいもの。後輩の成長やチームの変化など、あなたが関わって良くなったことを具体的に伝えてみましょう。",
+   fit:"人との関わりが少ない仕事や、競争ばかりの環境だと、やりがいを感じにくいタイプです。「誰かの役に立っている実感」が持てるかを一つの基準にしてみてください。",
+   change:"責任感の強さから「辞めたら迷惑がかかる」と迷っていませんか。周りへの配慮は大切ですが、あなたが無理を続けることも、長い目で見ればチームのためになりません。",
+   future:"支える側に回りがちで、自分のキャリアを後回しにしていないでしょうか。人を育てる力はマネジメントや教育の道で大きく生きます。自分のための目標を一つ立ててみましょう。"}},
+ 7:{name:"探究スペシャリスト型", core:"物事の本質を、とことん理解すること",
+  lead:"あなたは、物事の本質を深く掘り下げる人。分析力と集中力で、他の人が気づかない答えにたどり着く力があります。専門性を磨ける環境や、一人で考える時間を確保できる働き方で力を発揮しやすいタイプ。成果を周りに伝える一手間を加えると、評価と影響力がぐっと高まるでしょう。",
+  strength:"分析力、専門性を深める集中力", env:"研究・開発・IT、専門職、リモートワーク", tags:["分析力","集中力","専門職"],
+  adv:{
+   rel:"一人で考える時間が必要なあなたにとって、雑談や根回しは負担に感じやすいもの。無理に合わせなくても、要点を短く共有するだけで周囲の安心感は大きく変わります。",
+   eval:"深い分析や専門的な成果は、周りに伝わりにくいことがあります。「何がわかって、何に役立つのか」を一言で説明する習慣をつけると、評価が追いついてきます。",
+   fit:"浅く広くこなす仕事や、会議ばかりの環境では力が出にくいタイプです。じっくり取り組める専門領域があるかどうかが、向き不向きの分かれ目になります。",
+   change:"今の職場で専門性を深められるかを考えてみましょう。深められないなら環境を変える意味がありますし、深められるなら役割の相談で解決するかもしれません。",
+   future:"専門性を極めたい気持ちと、将来の不安が混ざっていませんか。今の専門を軸に隣の分野を一つ学ぶと、キャリアの選択肢が大きく広がります。"}},
+ 8:{name:"成果ドライブ型", core:"目標を掲げ、結果で応えること",
+  lead:"あなたは、目標に向かって結果を出す人。数字や成果への感度が高く、困難な目標ほど燃えるエネルギーがあります。頑張りが評価や報酬に直結する環境で、才能が大きく花開きやすいタイプ。スピードを少し緩めて周りの声を聞く場面を作ると、チームごと高い成果へ導けるはずです。",
+  strength:"目標達成力、数字とお金に強い", env:"営業・経営・投資、成果が評価に直結する場", tags:["達成力","数字に強い","成果主義"],
+  adv:{
+   rel:"結果を急ぐあまり、周りに厳しく映っている場面があるかもしれません。成果のためにも、相手の頑張りを一言認めることを意識すると、チームが動きやすくなります。",
+   eval:"結果を出しているのに評価されないなら、評価の仕組みそのものが合っていない可能性があります。成果が報酬にどう反映されるのか、一度上司と確認してみましょう。",
+   fit:"目標があいまいだったり、頑張りが報われにくい環境だと意欲が下がりやすいタイプです。仕事内容より「成果の見えやすさ」に原因がないか考えてみてください。",
+   change:"より大きな成果や報酬を求める気持ちは、あなたの原動力です。転職を考えるなら、年収だけでなく「成果がどう評価されるか」を基準に比べると後悔しにくくなります。",
+   future:"目標があると燃えるタイプなので、先が見えないと力を持て余しがちです。収入、役職、実績など、3年後に達成したい数字を一つ決めると進む方向が定まります。"}},
+ 9:{name:"ビジョンナビゲーター型", core:"理想を描き、人と共に実現すること",
+  lead:"あなたは、広い視野で未来を描く人。理想を語り、立場の違う人たちを一つの方向へ導く力があります。社会的な意義を感じられる仕事や、多様な人が集まる環境で輝きやすいタイプ。大きな理想を小さな一歩に分けて進めると、ビジョンが着実に形になっていくでしょう。",
+  strength:"広い視野、理想を語り人を巻き込む力", env:"社会貢献性のある仕事、海外・多様性のある職場", tags:["視野の広さ","巻き込む力","社会貢献"],
+  adv:{
+   rel:"理想が高いぶん、周りとの温度差にもどかしさを感じることがあるかもしれません。大きな目的を語るだけでなく、相手が今日できる一歩を示すと、共感が広がりやすくなります。",
+   eval:"大きな方向性を示す力は、短期の成果では測られにくいものです。ビジョンを小さな成果に分けて一つずつ実現し、形にして見せていきましょう。",
+   fit:"意義を感じられない仕事だと、力が出にくいタイプです。「この仕事は誰の役に立っているか」が見えないことが、違和感の正体かもしれません。",
+   change:"理想を思い描くほど、今の職場の物足りなさが目につくものです。転職先に求める「意義」を具体的な言葉にしてから探すと、理想と現実のギャップに悩みにくくなります。",
+   future:"大きな未来は描けても、そこまでの道筋がぼやけていませんか。理想の姿から逆算して、1年以内にできることを一つだけ決めると、道が具体的になります。"}}
+};
+const MASTER={11:2,22:4,33:6};
+const $=id=>document.getElementById(id);
+
+$("types").innerHTML=Object.keys(ICONS).map(k=>`<span style="--c:var(--t${k})">${ICONS[k]}</span>`).join("");
+
+function renderChips(el, name){
+  el.innerHTML=WORRIES.map(w=>`<label><input type="radio" name="${name}" value="${w.k}"><span>${w.label}</span></label>`).join("");
+}
+renderChips($("worryForm"),"wf");
+renderChips($("worryResult"),"wr");
+
+const ySel=$("y"), mSel=$("m"), dSel=$("d");
+const thisYear=new Date().getFullYear();
+function opt(sel,from,to,selected){
+  sel.innerHTML="";
+  for(let v=from;v<=to;v++){const o=document.createElement("option");o.value=v;o.textContent=v;if(v===selected)o.selected=true;sel.appendChild(o);}
+}
+opt(ySel,1940,thisYear-15,1985); opt(mSel,1,12,1);
+function fillDays(){const keep=+dSel.value||1;const max=new Date(+ySel.value,+mSel.value,0).getDate();opt(dSel,1,max,Math.min(keep,max));}
+fillDays(); ySel.addEventListener("change",fillDays); mSel.addEventListener("change",fillDays);
+
+function calc(y,m,d){
+  const digits=(String(y)+String(m).padStart(2,"0")+String(d).padStart(2,"0")).split("").map(Number);
+  let n=digits.reduce((a,b)=>a+b,0), master=null;
+  const steps=[digits.join("+")+" = "+n];
+  while(n>9){
+    if(MASTER[n]){master=n;break;}
+    const ds=String(n).split("").map(Number), next=ds.reduce((a,b)=>a+b,0);
+    steps.push(ds.join("+")+" = "+next); n=next;
+  }
+  return {num:master?MASTER[master]:n, master, steps};
+}
+
+let cur=null;
+function renderAdvice(key){
+  const t=TYPES[cur], body=$("adviceBody");
+  const w=WORRIES.find(x=>x.k===key);
+  if(!w){
+    body.innerHTML=`<p class="empty">気になっている悩みを選ぶと、${t.name}のあなたに向けたアドバイスが表示されます。</p>`;
+  }else{
+    body.innerHTML=`<p class="who">${t.name}のあなたへ</p><p class="q"></p><p class="a"></p>`;
+    body.querySelector(".q").textContent="「"+w.label+"」";
+    body.querySelector(".a").textContent=t.adv[key];
+  }
+  document.querySelectorAll('input[name="wr"]').forEach(i=>i.checked=(i.value===key));
+  // teaser
+  const toc=[
+    {t:"あなたの働き方の核"},
+    {t:"強みを最大限に活かす行動"},
+    {t:"お悩み別・深掘りアドバイス", hit:!!w, note: w?"「"+w.label+"」の原因と具体的な対処法":""},
+    {t:"向いている職種と、求人検索に使えるキーワード"}
+  ];
+  $("toc").innerHTML=toc.map(c=>`<li class="${c.hit?"hit":""}">${c.t}${c.note?`<small>${c.note}</small>`:""}</li>`).join("");
+  $("teaserSub").textContent = w
+    ? "上のアドバイスは、レポート第3章の要約です。レポートでは原因と対処法をさらに詳しく解説します。"
+    : "あなたのタイプに合わせた、詳しいキャリアガイドです。";
+}
+$("worryResult").addEventListener("change",e=>renderAdvice(e.target.value));
+
+const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+let lastText="";
+
+$("go").addEventListener("click",()=>{
+  const r=calc(+ySel.value,+mSel.value,+dSel.value), t=TYPES[r.num];
+  cur=r.num;
+  document.documentElement.style.setProperty("--tc",`var(--t${r.num})`);
+
+  const trail=$("trail"); trail.innerHTML="";
+  r.steps.forEach((s,i)=>{const sp=document.createElement("span");sp.textContent=s;trail.appendChild(sp);if(i<r.steps.length-1)trail.appendChild(document.createElement("br"));});
+  const card=$("card"); card.classList.remove("on");
+  $("badge").innerHTML=ICONS[r.num];
+  $("num").textContent="TYPE "+r.num;
+  $("tname").textContent=t.name;
+  $("tags").innerHTML=t.tags.map(x=>`<span>${x}</span>`).join("");
+  $("lead").textContent=t.lead;
+  $("strength").textContent=t.strength;
+  $("env").textContent=t.env;
+  $("excerpt").textContent="TYPE"+r.num+"のあなたの原動力は「"+t.core+"」。この章では、その原動力がどんな場面で最大限に発揮され、どんな場面で空回りしやすいのかを、具体的な仕事のシーンに沿って読み解いていきます。";
+  const ms=$("master");
+  if(r.master){ms.textContent="計算の途中で「"+r.master+"」が現れました。特別な意味を持つ数字とされ、詳しい読み解きは詳細レポートで扱う予定です。";ms.classList.add("show");}
+  else ms.classList.remove("show");
+
+  const sel=document.querySelector('input[name="wf"]:checked');
+  renderAdvice(sel?sel.value:null);
+
+  const res=$("result"); res.classList.add("show");
+  res.scrollIntoView({behavior:reduce?"auto":"smooth",block:"start"});
+  const spans=[...trail.querySelectorAll("span")], gap=reduce?0:350;
+  spans.forEach((sp,i)=>setTimeout(()=>sp.classList.add("on"),200+i*gap));
+  setTimeout(()=>card.classList.add("on"),200+spans.length*gap);
+
+  lastText="私の働き方タイプは「TYPE"+r.num+" "+t.name+"」でした。強み："+t.strength+" #働き方タイプ診断";
+  $("shareX").href="https://twitter.com/intent/tweet?text="+encodeURIComponent(lastText);
+});
+
+$("copy").addEventListener("click",async()=>{
+  const b=$("copy");
+  try{await navigator.clipboard.writeText(lastText);b.textContent="コピーしました";}
+  catch(e){b.textContent="コピーできませんでした";}
+  setTimeout(()=>b.textContent="結果をコピー",2000);
+});
+$("retry").addEventListener("click",()=>{
+  $("result").classList.remove("show");
+  window.scrollTo({top:0,behavior:reduce?"auto":"smooth"});
+});
+</script>
+</body>
+</html>
