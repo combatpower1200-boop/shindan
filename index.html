@@ -217,7 +217,9 @@ footer p{margin:0 0 8px}
         <p class="blur" aria-hidden="true">あなたが最も手応えを感じるのは、自分の持ち味がそのまま成果につながる瞬間です。逆に、その持ち味を封じられる環境では、実力の半分も出せていないと感じることがあるでしょう。ここでは、日々の仕事の中でその違いを見分けるための3つのサインと、</p>
         <div class="fade">続きは詳細レポートで</div>
       </div>
-      <span class="btn soon" role="note">準備中（ココナラで販売予定）</span>
+      <a id="buy" class="btn" href="https://coconala.com/contents_market/pictures/cmvajbzbg05cian0hxn4q8bbi" target="_blank" rel="noopener" style="display:none">レポートを見る（ココナラ・1,000円）</a>
+      <p id="buyNote" class="note" style="display:none;text-align:center">ココナラ コンテンツマーケットの商品ページが開きます</p>
+      <span id="soon" class="btn soon" role="note">このタイプのレポートは準備中です</span>
     </div>
 
     <div class="panel">
@@ -411,6 +413,10 @@ let lastText="";
 $("go").addEventListener("click",()=>{
   const r=calc(+ySel.value,+mSel.value,+dSel.value), t=TYPES[r.num];
   cur=r.num;
+  const ready={3:true};
+  $("buy").style.display=ready[r.num]?"block":"none";
+  $("buyNote").style.display=ready[r.num]?"block":"none";
+  $("soon").style.display=ready[r.num]?"none":"block";
   document.documentElement.style.setProperty("--tc",`var(--t${r.num})`);
 
   const trail=$("trail"); trail.innerHTML="";
